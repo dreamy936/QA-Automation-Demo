@@ -1,5 +1,5 @@
-Navigation Bar:
 [中文](#cn-中文版) | [日本語](#jp-日本語) | [English](#en-english-version)
+
 
 
 # 🚀 Github-Automation-Project
