@@ -1,0 +1,10 @@
+# Python Test automation project dependencies
+# Playwright
+playwright==1.44.0  
+
+# API Automation
+requests==2.32.3  
+pytest==8.4.1  
+
+# Report Generation
+allure-pytest==2.15.0  
