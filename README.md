@@ -1,10 +1,6 @@
 # 🚀 Github-Automation-Project
 
-
-
-
-
-[中文](#cn-Chinese) | [日本語](#jp-japanese) | [English](#en-english)
+[中文](#cn-chinese) | [日本語](#jp-japanese) | [English](#en-english)
 
 ---
 
@@ -28,71 +24,63 @@ cd github-automation-project
 pip install -r requirements.txt
 playwright install
 pytest tests/
+```
 
 ---
 
-
 ## jp-japanese
-<a name="jp-日本語"></a>
 
-📖 プロジェクト概要
+### 📖 プロジェクト概要
 
 このプロジェクトは UI 自動化 + API 自動化 + CI/CD 統合 を組み合わせたサンプルです。
 GitHub を対象システムとして、Web UI 機能 と REST API を検証します。
 
-🛠 技術スタック
+### 🛠 技術スタック
 
-言語: Python 3.x
+- 言語: Python 3.x
+- UI 自動化: Playwright
+- API 自動化: Pytest + Requests
+- レポート: Allure / Pytest-HTML
+- CI/CD: GitHub Actions
 
-UI 自動化: Playwright
-
-API 自動化: Pytest + Requests
-
-レポート: Allure / Pytest-HTML
-
-CI/CD: GitHub Actions
-
-⚙️ クイックスタート
+### ⚙️ クイックスタート
+```bash
 git clone https://github.com/yourname/github-automation-project.git
 cd github-automation-project
 pip install -r requirements.txt
 playwright install
 pytest tests/
+```
 
 ---
 
 ## en-english
-<a name="en-english-version"></a>
 
-📖 Project Overview
+### 📖 Project Overview
 
 This is a sample project combining UI Automation + API Automation + CI/CD Integration,
 aiming to simulate a real-world testing workflow.
 The System Under Test (SUT) is GitHub, where we validate both Web UI functionalities and REST API endpoints.
 
-🛠 Tech Stack
+### 🛠 Tech Stack
 
-Language: Python 3.x
+- Language: Python 3.x
+- UI Automation: Playwright
+- API Automation: Pytest + Requests
+- Report: Allure / Pytest-HTML
+- CI/CD: GitHub Actions
 
-UI Automation: Playwright
-
-API Automation: Pytest + Requests
-
-Report: Allure / Pytest-HTML
-
-CI/CD: GitHub Actions
-
-⚙️ Quick Start
+### ⚙️ Quick Start
+```bash
 git clone https://github.com/yourname/github-automation-project.git
 cd github-automation-project
 pip install -r requirements.txt
 playwright install
 pytest tests/
+```
 
-👩‍💻 Author: Amber
-Role: QA Enthusiast, Automation Learner
-Contact: GitHub Profile
-
+👩‍💻 Author: Amber  
+Role: QA Enthusiast, Automation Learner  
+Contact: GitHub Profile  
 
 ---
-
