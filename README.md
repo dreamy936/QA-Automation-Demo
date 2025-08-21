@@ -6,6 +6,12 @@
 
 [中文](#cn-中文版) | [日本語](#jp-日本語) | [English](#en-english-version)
 
+## JP-日本語
+<a name="jp-日本語"></a>
+
+## EN-English-Version
+<a name="en-english-version"></a>
+
 ---
 
 ## CN-中文版
@@ -33,6 +39,8 @@ pytest tests/
 
 
 ## JP-日本語
+<a name="jp-日本語"></a>
+
 📖 プロジェクト概要
 
 このプロジェクトは UI 自動化 + API 自動化 + CI/CD 統合 を組み合わせたサンプルです。
@@ -60,6 +68,8 @@ pytest tests/
 ---
 
 ## EN-English-Version
+<a name="en-english-version"></a>
+
 📖 Project Overview
 
 This is a sample project combining UI Automation + API Automation + CI/CD Integration,
