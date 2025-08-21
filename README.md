@@ -4,17 +4,11 @@
 
 
 
-[中文](#cn-中文版) | [日本語](#jp-日本語) | [English](#en-english-version)
-
-## JP-日本語
-<a name="jp-日本語"></a>
-
-## EN-English-Version
-<a name="en-english-version"></a>
+[中文](#cn-Chinese) | [日本語](#jp-japanese) | [English](#en-english)
 
 ---
 
-## CN-中文版
+## cn-Chinese
 
 ### 📖 项目简介
 这是一个结合 **UI 自动化 + API 自动化 + CI/CD 集成** 的示例项目，目标是模拟真实企业的测试工作流。  
@@ -38,7 +32,7 @@ pytest tests/
 ---
 
 
-## JP-日本語
+## jp-japanese
 <a name="jp-日本語"></a>
 
 📖 プロジェクト概要
@@ -67,7 +61,7 @@ pytest tests/
 
 ---
 
-## EN-English-Version
+## en-english
 <a name="en-english-version"></a>
 
 📖 Project Overview
