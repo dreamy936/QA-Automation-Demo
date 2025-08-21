@@ -40,12 +40,13 @@ pytest tests/
 
 
 ## JP 日本語
-📖 プロジェクト概要
+
+### 📖 プロジェクト概要
 
 このプロジェクトは UI 自動テスト + API 自動テスト + CI/CD 統合 を組み合わせたサンプルです。
 GitHub を対象システムとして、Web UI 機能 と REST API を検証します。
 
-🛠 技術スタック
+### 🛠 技術スタック
 
 言語: Python 3.x
 
@@ -57,7 +58,7 @@ API 自動化: Pytest + Requests
 
 CI/CD: GitHub Actions
 
-⚙️ クイックスタート
+### ⚙️ クイックスタート
 git clone https://github.com/yourname/github-automation-project.git
 cd github-automation-project
 pip install -r requirements.txt
@@ -77,13 +78,13 @@ README にビルドステータスを表示
 
 
 ## EN English Version
-📖 Project Overview
+### 📖 Project Overview
 
 This is a sample project that combines UI Automation + API Automation + CI/CD Integration,
 aiming to simulate a real-world testing workflow.
 The System Under Test (SUT) is GitHub, where we validate both Web UI functionalities and REST API endpoints.
 
-🛠 Tech Stack
+### 🛠 Tech Stack
 
 Language: Python 3.x
 
@@ -95,7 +96,7 @@ Report: Allure / Pytest-HTML
 
 CI/CD: GitHub Actions
 
-⚙️ Quick Start
+### ⚙️ Quick Start
 git clone https://github.com/yourname/github-automation-project.git
 cd github-automation-project
 pip install -r requirements.txt
