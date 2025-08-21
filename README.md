@@ -1,11 +1,12 @@
-```markdown
-[中文](#-中文版) | [日本語](#-日本語版) | [English](#-english-version)
+
+[中文](#cn-中文版) | [日本語](#jp-日本語版) | [English](#en-english-version)
+
 
 # 🚀 Github-Automation-Project
 
 ---
 
-## 🇨🇳 中文版
+## CN 中文版
 
 ### 📖 项目简介
 这是一个结合 **UI 自动化 + API 自动化 + CI/CD 集成** 的示例项目，目标是模拟真实企业的测试工作流。  
@@ -36,7 +37,9 @@ pytest tests/
 
 在 README 中展示构建状态 Badge
 
-🇯🇵 日本語版
+
+
+## JP 日本語版
 📖 プロジェクト概要
 
 このプロジェクトは UI 自動テスト + API 自動テスト + CI/CD 統合 を組み合わせたサンプルです。
@@ -71,7 +74,9 @@ UI & API テストを自動実行
 
 README にビルドステータスを表示
 
-🇺🇸 English Version
+
+
+## EN English Version
 📖 Project Overview
 
 This is a sample project that combines UI Automation + API Automation + CI/CD Integration,
@@ -107,9 +112,9 @@ Generates test reports
 
 Displays build status badge in README
 
-👩‍💻 作者 / 作者 / Author
 
-Name: Amber
+
+👩‍💻 Author：Amber
 
 Role: QA Enthusiast, Automation Learner
 
