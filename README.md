@@ -1,5 +1,9 @@
 # 🚀 Github-Automation-Project
 
+## CN-中文版
+## JP-日本語
+## EN-English-Version
+
 [中文](#cn-中文版) | [日本語](#jp-日本語) | [English](#en-english-version)
 
 ---
