@@ -1,14 +1,14 @@
 # 🚀 Github-Automation-Project
 
-## CN-中文版
-## JP-日本語
-## EN-English-Version
+
+
+
 
 [中文](#cn-中文版) | [日本語](#jp-日本語) | [English](#en-english-version)
 
 ---
 
-## CN 中文版
+## CN-中文版
 
 ### 📖 项目简介
 这是一个结合 **UI 自动化 + API 自动化 + CI/CD 集成** 的示例项目，目标是模拟真实企业的测试工作流。  
@@ -29,8 +29,10 @@ pip install -r requirements.txt
 playwright install
 pytest tests/
 
+---
 
-JP 日本語
+
+## JP-日本語
 📖 プロジェクト概要
 
 このプロジェクトは UI 自動化 + API 自動化 + CI/CD 統合 を組み合わせたサンプルです。
@@ -55,7 +57,9 @@ pip install -r requirements.txt
 playwright install
 pytest tests/
 
-EN English Version
+---
+
+## EN-English-Version
 📖 Project Overview
 
 This is a sample project combining UI Automation + API Automation + CI/CD Integration,
