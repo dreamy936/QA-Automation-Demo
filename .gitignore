@@ -1,0 +1,16 @@
+#避免把缓存、报告等推到 GitHub
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Pytest/Allure
+reports/
+allure-results/
+allure-report/
+
+# Playwright
+test-results/
+playwright-report/
