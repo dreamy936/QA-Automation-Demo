@@ -1,3 +1,4 @@
+#Avoid pushing cached files and reports to GitHub.
 #避免把缓存、报告等推到 GitHub
 
 # Python
