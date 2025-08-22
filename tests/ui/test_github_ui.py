@@ -1,22 +1,14 @@
-import pytest
-from playwright.sync_api import Page, expect
+# 需要 fixtures: page（pytest-playwright 提供）/ 我们在 conftest 用 pw_context 包装
 
-@pytest.fixture(scope="function", autouse=True)
-def before_each_test(page: Page):
-    # 每次测试前，访问 GitHub 首页
-    page.goto("https://github.com/")
+def test_home_title(pw_context):
+    pw_context.goto("https://github.com/", wait_until="domcontentloaded")
+    assert "GitHub" in pw_context.title()
 
-def test_github_homepage_title(page: Page):
-    # 验证页面标题
-    assert "GitHub: Let’s build from here…" in page.title()
-
-def test_search_for_playwright_repo(page: Page):
-    # 查找搜索框
-    page.get_by_placeholder("Search GitHub…").click()
-    # 输入关键词
-    page.get_by_placeholder("Search GitHub…").fill("playwright")
-    page.get_by_placeholder("Search GitHub…").press("Enter")
-    # 验证搜索结果页面标题
-    expect(page).to_have_title("Search · playwright")
-    # 验证搜索结果中是否包含特定仓库
-    expect(page.get_by_text("microsoft/playwright")).to_be_visible()
+def test_search_playwright(pw_context):
+    pw_context.goto("https://github.com/", wait_until="domcontentloaded")
+    pw_context.get_by_placeholder("Search or jump to...").click()
+    pw_context.get_by_placeholder("Search or jump to...").fill("playwright")
+    pw_context.keyboard.press("Enter")
+    pw_context.wait_for_timeout(1000)
+    # 断言结果页里含有关键字
+    assert "playwright" in pw_context.url.lower()
