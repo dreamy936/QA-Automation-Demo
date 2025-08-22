@@ -1,3 +1,6 @@
+![CI](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml/badge.svg)
+
+
 # 🚀 Github-Automation-Project
 
 [中文](#cn-chinese) | [日本語](#jp-japanese) | [English](#en-english)
