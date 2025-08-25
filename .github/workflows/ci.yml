@@ -18,13 +18,30 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-22.04
-    # 这行决定了是否在 job 卡片显示“直达链接”
+    # 让 job 卡片出现“直达链接”
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
+    # 关键：全局设置东京时区（对 Python/pytest-html 生效）
+    env:
+      TZ: Asia/Tokyo
 
     steps:
       - uses: actions/checkout@v4
+
+      # --- 设置系统时区为东京（对 `date` 等系统命令生效）---
+      - name: Set timezone to Tokyo (system & env)
+        run: |
+          echo "Asia/Tokyo" | sudo tee /etc/timezone
+          sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+          # 验证：这里应该打印东京时间
+          date -R
+          python - <<'PY'
+          import datetime, time, os
+          print("PY local time:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+          print("TZ env:", os.environ.get("TZ"))
+          print("time.tzname:", time.tzname)
+          PY
 
       - uses: actions/setup-python@v5
         with:
@@ -52,18 +69,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: ui-report/             # 这里面有 index.html
+          path: ui-report/
           if-no-files-found: warn
           retention-days: 7
 
-      # 把 ui-report/ 打包成“待部署到 Pages 的工件”
       - name: Upload Pages artifact
         if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: ui-report/
 
-      # 真正发布到 GitHub Pages，并把 page_url 作为 outputs 回传
       - name: Deploy to GitHub Pages
         if: always()
         id: deploy
