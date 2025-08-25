@@ -39,6 +39,7 @@ QA-Automation-Demo/
 │── README.md                    # Project guide
 
 
+
 ---
 
 ## cn-Chinese
@@ -50,19 +51,26 @@ QA-Automation-Demo/
 
 
 ### 🛠 技术栈
-- **语言**: Python 3.x  
-- **UI 自动化**: Playwright  
-- **API 自动化**: Pytest + Requests  
-- **报告**: Allure / Pytest-HTML  
-- **CI/CD**: GitHub Actions  
+语言: Python 3.x
+
+UI 自动化: Playwright
+
+API 自动化: Pytest + Requests
+
+报告: Allure / Pytest-HTML
+
+CI/CD: GitHub Actions 
 
 ### ⚙️ 快速开始
-```bash
-git clone https://github.com/yourname/github-automation-project.git
-cd github-automation-project
+git clone https://github.com/dreamy936/QA-Automation-Demo.git
+cd QA-Automation-Demo
+python -m venv .venv
+.\.venv\Scripts\activate   # Windows (PowerShell)
+# source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 playwright install
 pytest tests/
+
 
 ### 注意事项
 本地运行时请务必使用 虚拟环境 (python -m venv .venv)。
@@ -80,7 +88,7 @@ pytest tests/
 3.ci.yml 中的报告路径
 
 时区已固定为 Asia/Tokyo (JST)，保持与本地时间一致。
-```
+
 
 ---
 
@@ -106,6 +114,7 @@ cd github-automation-project
 pip install -r requirements.txt
 playwright install
 pytest tests/
+```
 
 ### 📝  注意事項
 ローカル実行時は必ず 仮想環境 (python -m venv .venv) を使用してください。
@@ -121,7 +130,6 @@ CI が失敗した場合、以下を確認してください:
 3.ci.yml 内のレポート出力パス
 
 タイムゾーンは Asia/Tokyo (JST) に固定しています。
-```
 
 ---
 
@@ -147,6 +155,7 @@ cd github-automation-project
 pip install -r requirements.txt
 playwright install
 pytest tests/
+```
 
 ###  📝 Notes
 Always use a virtual environment when running locally (python -m venv .venv).
@@ -163,8 +172,7 @@ If CI fails, check:
 
 Timezone is set to Asia/Tokyo (JST) for consistency with local time.
 
-```
-
+--
 👩‍💻 Author: Amber  
 Role: QA Enthusiast, Automation Learner  
 Contact: GitHub Profile  
