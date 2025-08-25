@@ -8,12 +8,14 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04   # ← 关键：固定 jammy
+    runs-on: ubuntu-22.04   # 固定 22.04，避免系统包不匹配
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -29,15 +31,24 @@ jobs:
       - name: Run API tests
         run: pytest tests/api -q
 
+      # 生成 HTML 报告 + 失败时保留 trace/screenshot
       - name: Run UI tests (Playwright) with HTML report
-        run: pytest tests/ui -q
+        run: |
+          mkdir -p playwright-report
+          pytest tests/ui -q \
+            --tracing=retain-on-failure \
+            --screenshot=only-on-failure \
+            --video=off \
+            --html=playwright-report/ui-report.html --self-contained-html
 
-      - name: Upload Playwright report
+      # 上传报告与失败产物（无论成功失败都上传）
+      - name: Upload Playwright report & traces
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: |
-            playwright-report/
-            test-results/
-          if-no-files-found: ignore
+            playwright-report/      # HTML 报告：ui-report.html
+            test-results/           # 失败时的 trace/screenshot（pytest-playwright 默认目录）
+          if-no-files-found: warn
+          retention-days: 7
