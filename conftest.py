@@ -4,27 +4,30 @@
 #失败自动截图到 test-results，便于在 Actions 里查看工件
 
 
-# conftest.py
 import os
 import pytest
 
-# ---- API 共用配置（如需 Token，可在此读取环境变量）
+# API 基础地址
 @pytest.fixture(scope="session")
 def github_api_base():
     return "https://api.github.com"
 
-# ---- UI: Playwright 基础页面
+# Playwright 页面包装：失败时截图到 test-results/
 @pytest.fixture(scope="function")
 def pw_context(page, request):
-    # 出错时截图
     yield page
-    if request.node.rep_call.failed:
+    # 测试执行后的阶段报告由 makereport 钩子注入到 item 上
+    rep_call = getattr(request.node, "rep_call", None)
+    if rep_call and rep_call.failed:
         os.makedirs("test-results", exist_ok=True)
         page.screenshot(path=f"test-results/{request.node.name}.png")
 
-# 在每个用例阶段结束后，pytest 会设置 rep_* 属性
+# ！！！pytest 8 需要显式声明 hookwrapper=True
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
-    if "pw_context" in item.fixturenames:
-        outcome = yield
-        rep = outcome.get_result()
-        setattr(item, "rep_" + rep.when, rep)
+    # 先让其他钩子/pytest 执行
+    outcome = yield
+    # 再拿到报告对象
+    rep = outcome.get_result()
+    # 注入到用例对象上，供上面的 fixture 判断
+    setattr(item, "rep_" + rep.when, rep)
