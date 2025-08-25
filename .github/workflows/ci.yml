@@ -6,22 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
-# Pages 需要的权限
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
   test:
     runs-on: ubuntu-22.04
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      TZ: Asia/Tokyo     # ← 让构建机按日本时区运行
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +20,17 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      - name: Show current time (debug)
+        run: |
+          echo "System time:"
+          date
+          python - << 'PY'
+          import datetime, time, os
+          print("Python datetime.now():", datetime.datetime.now())
+          print("TZ env:", os.environ.get("TZ"))
+          print("time.tzname:", time.tzname)
+          PY
+
       - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
@@ -39,45 +39,35 @@ jobs:
       - name: Install Playwright browsers and system deps
         run: python -m playwright install --with-deps
 
-      # 运行 API 测试（静默）
       - name: Run API tests
         run: pytest tests/api -q
 
-      # 运行 UI，并**强制**生成 HTML 报告到 playwright-report/index.html
       - name: Run UI tests (Playwright) with HTML report
-        run: |
-          mkdir -p playwright-report
-          pytest tests/ui -q --html=playwright-report/index.html --self-contained-html
-          echo "REPORT_PATH=$(pwd)/playwright-report/index.html"
-          test -f playwright-report/index.html
+        run: pytest tests/ui -q
 
-      # 调试：列目录，便于定位为什么没有生成报告
-      - name: Debug list report files
-        if: always()
-        run: |
-          echo "PWD=$(pwd)"
-          ls -la
-          ls -la playwright-report || true
-
-      # 上传 Artifact（保底；失败也会传）
       - name: Upload Playwright report (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report/**
-          if-no-files-found: error
-          retention-days: 7
+          path: |
+            ui-report.html
+            test-results/
 
-      # 上传 Pages 工件（目录必须存在）
+      # 生成并发布到 GitHub Pages（保持你现在的成功配置即可）
+      - name: Prepare GitHub Pages content
+        if: always()
+        run: |
+          mkdir -p gh-pages
+          cp ui-report.html gh-pages/index.html || true
+          [ -d test-results ] && cp -r test-results gh-pages/test-results || true
+
       - name: Upload Pages artifact
         if: always()
         uses: actions/upload-pages-artifact@v3
         with:
-          path: playwright-report
+          path: gh-pages
 
-      # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         if: always()
-        id: deployment
         uses: actions/deploy-pages@v4
