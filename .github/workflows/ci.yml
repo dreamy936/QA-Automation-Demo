@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
 
-# Pages 需要的权限（很重要）
+# Pages 需要的权限
 permissions:
   contents: read
   pages: write
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04   # 固定 22.04（Playwright 依赖更稳定）
+    runs-on: ubuntu-22.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -39,24 +39,37 @@ jobs:
       - name: Install Playwright browsers and system deps
         run: python -m playwright install --with-deps
 
-      # 运行 API & UI（你的 pytest.ini 里已经配置了 HTML 报告输出到 playwright-report/index.html）
+      # 运行 API 测试（静默）
       - name: Run API tests
         run: pytest tests/api -q
 
+      # 运行 UI，并**强制**生成 HTML 报告到 playwright-report/index.html
       - name: Run UI tests (Playwright) with HTML report
-        run: pytest tests/ui -q
+        run: |
+          mkdir -p playwright-report
+          pytest tests/ui -q --html=playwright-report/index.html --self-contained-html
+          echo "REPORT_PATH=$(pwd)/playwright-report/index.html"
+          test -f playwright-report/index.html
 
-      # 上传 Artifact（保底，失败也上传）
+      # 调试：列目录，便于定位为什么没有生成报告
+      - name: Debug list report files
+        if: always()
+        run: |
+          echo "PWD=$(pwd)"
+          ls -la
+          ls -la playwright-report || true
+
+      # 上传 Artifact（保底；失败也会传）
       - name: Upload Playwright report (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report/
+          path: playwright-report/**
           if-no-files-found: error
           retention-days: 7
 
-      # 上传 Pages 工件（把整个 HTML 报告目录作为站点内容）
+      # 上传 Pages 工件（目录必须存在）
       - name: Upload Pages artifact
         if: always()
         uses: actions/upload-pages-artifact@v3
