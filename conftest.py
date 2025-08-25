@@ -31,3 +31,42 @@ def pytest_runtest_makereport(item, call):
     rep = outcome.get_result()
     # 注入到用例对象上，供上面的 fixture 判断
     setattr(item, "rep_" + rep.when, rep)
+
+#失败时自动截图并嵌入 HTML 报告
+from pathlib import Path
+import pytest
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+
+    # 仅在用例执行阶段失败才处理
+    if rep.when != "call" or rep.passed:
+        return
+
+    # 需要能拿到 page（或你自定义的 pw_context）
+    page = None
+    for name in ("page", "pw_context"):
+        if name in item.funcargs:
+            page = item.funcargs[name]
+            break
+    if not page:
+        return
+
+    out_dir = Path("test-results") / item.name
+    out_dir.mkdir(parents=True, exist_ok=True)
+    img = out_dir / "screenshot.png"
+    try:
+        page.screenshot(path=str(img), full_page=True)
+    except Exception:
+        return
+
+    # 嵌入 pytest-html
+    try:
+        from pytest_html import extras
+        extra = getattr(rep, "extra", [])
+        extra.append(extras.image(str(img)))
+        rep.extra = extra
+    except Exception:
+        pass
