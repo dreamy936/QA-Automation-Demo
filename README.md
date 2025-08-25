@@ -1,5 +1,14 @@
 ![CI](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml/badge.svg)
 
+**CI Status**  
+[![CI](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml)
+
+**Latest successful runs**  
+https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess
+
+> 打开某次成功运行 → 页面底部 **Artifacts** → 下载 `playwright-report`（解压后打开 `index.html`）。
+
+
 
 # 🚀 Github-Automation-Project
 
@@ -87,3 +96,12 @@ Role: QA Enthusiast, Automation Learner
 Contact: GitHub Profile  
 
 ---
+
+📝 注意事项 / Notes
+1) CI 运行环境
+
+固定 Runner 版本：使用 ubuntu-22.04（Jammy）。
+ubuntu-latest 可能升级到 24.04 导致系统包名变化（例如 libffi7、libx264-163 找不到）。
+
+安装浏览器及依赖：在 CI 中使用
+
