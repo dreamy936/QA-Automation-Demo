@@ -9,7 +9,7 @@
 
 
 
-🚀 CI/CD Pipeline | CI/CD パイプライン | CI/CD 流程
+### 🚀 CI/CD Pipeline | CI/CD パイプライン | CI/CD 流程
 
 ✅ Runs on every push → Triggers GitHub Actions workflow
 
@@ -27,7 +27,7 @@
 
 
 
-📂 Project Structure | プロジェクト構成 | 项目结构
+### 📂 Project Structure | プロジェクト構成 | 项目结构
 
 ```bash
 QA-Automation-Demo/
