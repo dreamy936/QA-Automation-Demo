@@ -4,7 +4,8 @@
 
 [中文](#cn-chinese) | [日本語](#jp-japanese) | [English](#en-english)
 
-🔗 View the Latest Online HTML Test Report (GitHub Pages):
+🔗 View the Latest Online HTML Test Report (GitHub Pages)
+👉 Click here：
 https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess
 
 
@@ -28,6 +29,7 @@ https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=b
 
 📂 Project Structure | プロジェクト構成 | 项目结构
 
+```bash
 QA-Automation-Demo/
 │── .github/workflows/ci.yml     # CI/CD workflow
 │── tests/                       # Test cases
@@ -37,6 +39,9 @@ QA-Automation-Demo/
 │── pytest.ini                   # Pytest config
 │── requirements.txt             # Dependencies
 │── README.md                    # Project guide
+```
+
+
 
 
 
@@ -190,6 +195,7 @@ If CI fails, check:
 Timezone is set to Asia/Tokyo (JST) for consistency with local time.
 
 --
+
 👩‍💻 Author: Amber  
 Role: QA Enthusiast, Automation Learner  
 Contact: GitHub Profile  
