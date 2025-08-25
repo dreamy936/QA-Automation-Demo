@@ -6,11 +6,26 @@ on:
   pull_request:
     branches: [ main ]
 
+# ⬇️ 关键：给 GITHUB_TOKEN 授权（deploy-pages 需要 OIDC）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 避免并发发布相互冲突
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   test:
     runs-on: ubuntu-22.04
     env:
-      TZ: Asia/Tokyo     # ← 让构建机按日本时区运行
+      TZ: Asia/Tokyo        # 让构建机用日本时区生成报告时间
+    # 让 Actions 在“环境”里显示 Pages URL（非必须，但好看）
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
@@ -19,17 +34,6 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
-
-      - name: Show current time (debug)
-        run: |
-          echo "System time:"
-          date
-          python - << 'PY'
-          import datetime, time, os
-          print("Python datetime.now():", datetime.datetime.now())
-          print("TZ env:", os.environ.get("TZ"))
-          print("time.tzname:", time.tzname)
-          PY
 
       - name: Install Python deps
         run: |
@@ -53,8 +57,10 @@ jobs:
           path: |
             ui-report.html
             test-results/
+          if-no-files-found: warn
 
-      # 生成并发布到 GitHub Pages（保持你现在的成功配置即可）
+      # ==== GitHub Pages 发布 ====
+
       - name: Prepare GitHub Pages content
         if: always()
         run: |
@@ -62,12 +68,14 @@ jobs:
           cp ui-report.html gh-pages/index.html || true
           [ -d test-results ] && cp -r test-results gh-pages/test-results || true
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload Pages artifact
-        if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: gh-pages
 
       - name: Deploy to GitHub Pages
-        if: always()
+        id: deploy
         uses: actions/deploy-pages@v4
