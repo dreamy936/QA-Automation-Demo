@@ -6,48 +6,69 @@ on:
   pull_request:
     branches: [ main ]
 
-# ⬇️ 关键：给 GITHUB_TOKEN 授权（deploy-pages 需要 OIDC）
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 避免并发发布相互冲突
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
   test:
     runs-on: ubuntu-22.04
-    env:
-      TZ: Asia/Tokyo        # 让构建机用日本时区生成报告时间
-    # 让 Actions 在“环境”里显示 Pages URL（非必须，但好看）
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
+          cache: pip
 
-      - name: Install Python deps
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Playwright browsers and system deps
+      - name: Install Playwright browsers
         run: python -m playwright install --with-deps
 
       - name: Run API tests
         run: pytest tests/api -q
 
-      - name: Run UI tests (Playwright) with HTML report
-        run: pytest tests/ui -q
+      - name: Run UI tests (HTML report)
+        run: |
+          pytest tests/ui -q \
+            --html=ui-report.html \
+            --self-contained-html
+
+      # 关键：确认报告真的生成，否则直接 fail
+      - name: Assert report exists
+        run: |
+          ls -lah
+          test -f ui-report.html || (echo "ui-report.html NOT found!" && exit 1)
+
+      # 生成 Pages 目录（含重定向首页）
+      - name: Prepare Pages content
+        run: |
+          mkdir -p gh-pages
+          cp ui-report.html gh-pages/
+          # 生成一个简单的 index.html ，点击即跳转到报告
+          cat > gh-pages/index.html <<'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>QA Demo Report</title>
+          <meta http-equiv="refresh" content="0; url=ui-report.html">
+          <p>If you are not redirected, <a href="ui-report.html">open report</a>.</p>
+          EOF
+          # 如有 trace/screenshot 目录可一起带上（可选）
+          if [ -d test-results ]; then cp -r test-results gh-pages/; fi
+          echo "gh-pages content:"
+          ls -lah gh-pages
 
       - name: Upload Playwright report (artifact)
         if: always()
@@ -57,19 +78,7 @@ jobs:
           path: |
             ui-report.html
             test-results/
-          if-no-files-found: warn
-
-      # ==== GitHub Pages 发布 ====
-
-      - name: Prepare GitHub Pages content
-        if: always()
-        run: |
-          mkdir -p gh-pages
-          cp ui-report.html gh-pages/index.html || true
-          [ -d test-results ] && cp -r test-results gh-pages/test-results || true
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+          if-no-files-found: ignore
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -77,5 +86,7 @@ jobs:
           path: gh-pages
 
       - name: Deploy to GitHub Pages
-        id: deploy
+        id: deployment
         uses: actions/deploy-pages@v4
+        env:
+          TZ: Asia/Tokyo
