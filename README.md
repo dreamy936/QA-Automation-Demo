@@ -5,8 +5,8 @@
 [中文](#cn-chinese) | [日本語](#jp-japanese) | [English](#en-english)
 
 🔗 View the Latest Online HTML Test Report (GitHub Pages)
-👉 Click here：
-https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess
+👉 [Click here](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess)
+
 
 
 🚀 CI/CD Pipeline | CI/CD パイプライン | CI/CD 流程
