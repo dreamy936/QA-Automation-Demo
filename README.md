@@ -140,7 +140,9 @@ pytest を使って実行すると、レポートは自動生成されます。
 CI が失敗した場合、以下を確認してください:
 
 1.依存関係 (pip install)
+
 2.ブラウザインストール (python -m playwright install --with-deps)
+
 3.ci.yml 内のレポート出力パス
 
 タイムゾーンは Asia/Tokyo (JST) に固定しています。
@@ -189,7 +191,9 @@ Use pytest in PowerShell or CI; reports will be auto-generated.
 If CI fails, check:
 
 1.Dependency installation (pip install)
+
 2.Browser installation (python -m playwright install --with-deps)
+
 3.Report upload paths in ci.yml
 
 Timezone is set to Asia/Tokyo (JST) for consistency with local time.
