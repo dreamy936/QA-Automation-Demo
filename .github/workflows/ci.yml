@@ -59,10 +59,14 @@ jobs:
       - name: Run API tests
         run: pytest tests/api -q
 
-      - name: Run UI tests (Playwright) + build HTML report
+      - name: Run UI tests (Playwright) + build HTML report (JST stamp)
         run: |
+          # 用系统 date 生成东京时间，塞进 pytest-html 的元数据
+          JST_NOW="$(date '+%Y-%m-%d %H:%M:%S JST')"
           pytest tests/ui -q \
-            --html=ui-report/index.html --self-contained-html
+            --html=ui-report/index.html --self-contained-html \
+            --metadata "Report TZ" "Asia/Tokyo" \
+            --metadata "Generated (JST)" "$JST_NOW"
 
       - name: Upload Playwright report (artifact)
         if: always()
