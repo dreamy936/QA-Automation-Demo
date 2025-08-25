@@ -78,7 +78,7 @@ playwright install
 pytest tests/
 ```
 
-### 注意事项
+### 📝  注意事项
 本地运行时请务必使用 虚拟环境 (python -m venv .venv)。
 
 运行测试前先执行 pip install -r requirements.txt。
