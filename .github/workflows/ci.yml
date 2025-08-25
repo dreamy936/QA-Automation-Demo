@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04   # 固定 22.04，避免系统包不匹配
+    runs-on: ubuntu-22.04   # 固定系统版本，避免系统依赖差异
 
     steps:
       - name: Checkout
@@ -31,7 +31,7 @@ jobs:
       - name: Run API tests
         run: pytest tests/api -q
 
-      # 生成 HTML 报告 + 失败时保留 trace/screenshot
+      # 生成 HTML 报告；成功/失败都生成
       - name: Run UI tests (Playwright) with HTML report
         run: |
           mkdir -p playwright-report
@@ -39,16 +39,26 @@ jobs:
             --tracing=retain-on-failure \
             --screenshot=only-on-failure \
             --video=off \
-            --html=playwright-report/ui-report.html --self-contained-html
+            --html=playwright-report/index.html --self-contained-html
 
-      # 上传报告与失败产物（无论成功失败都上传）
+      # 调试：列出要上传的目录（遇到不存在也不报错）
+      - name: List report dirs (debug)
+        if: always()
+        run: |
+          echo "== ls playwright-report =="
+          ls -Rl playwright-report || true
+          echo "== ls test-results =="
+          ls -Rl test-results || true
+
+      # 上传报告与失败产物（注意：这里不能写注释在路径行里）
       - name: Upload Playwright report & traces
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
+          # 用通配符；playwright-report 一定存在；test-results 只有失败时出现
           path: |
-            playwright-report/      # HTML 报告：ui-report.html
-            test-results/           # 失败时的 trace/screenshot（pytest-playwright 默认目录）
+            playwright-report/**
+            test-results/**
           if-no-files-found: warn
           retention-days: 7
