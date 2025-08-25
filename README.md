@@ -59,9 +59,10 @@ API 自动化: Pytest + Requests
 
 报告: Allure / Pytest-HTML
 
-CI/CD: GitHub Actions 
+CI/CD: GitHub Actions
 
 ### ⚙️ 快速开始
+```bash
 git clone https://github.com/dreamy936/QA-Automation-Demo.git
 cd QA-Automation-Demo
 python -m venv .venv
@@ -70,7 +71,7 @@ python -m venv .venv
 pip install -r requirements.txt
 playwright install
 pytest tests/
-
+```
 
 ### 注意事项
 本地运行时请务必使用 虚拟环境 (python -m venv .venv)。
@@ -101,20 +102,28 @@ GitHub Actions と連携し、プッシュのたびに UI / API テストを実�
 
 ### 🛠 技術スタック
 
-- 言語: Python 3.x
-- UI 自動化: Playwright
-- API 自動化: Pytest + Requests
-- レポート: Allure / Pytest-HTML
-- CI/CD: GitHub Actions
+言語: Python 3.x
+
+UI 自動化: Playwright
+
+API 自動化: Pytest + Requests
+
+レポート: Allure / Pytest-HTML
+
+CI/CD: GitHub Actions
 
 ### ⚙️ クイックスタート
 ```bash
-git clone https://github.com/yourname/github-automation-project.git
-cd github-automation-project
+git clone https://github.com/dreamy936/QA-Automation-Demo.git
+cd QA-Automation-Demo
+python -m venv .venv
+.\.venv\Scripts\activate   # Windows (PowerShell)
+# source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 playwright install
 pytest tests/
 ```
+
 
 ### 📝  注意事項
 ローカル実行時は必ず 仮想環境 (python -m venv .venv) を使用してください。
@@ -142,20 +151,28 @@ The project integrates with GitHub Actions to run UI/API tests on every push, an
 
 ### 🛠 Tech Stack
 
-- Language: Python 3.x
-- UI Automation: Playwright
-- API Automation: Pytest + Requests
-- Report: Allure / Pytest-HTML
-- CI/CD: GitHub Actions
+Language: Python 3.x
+
+UI Automation: Playwright
+
+API Automation: Pytest + Requests
+
+Reports: Allure / Pytest-HTML
+
+CI/CD: GitHub Actions
 
 ### ⚙️ Quick Start
 ```bash
-git clone https://github.com/yourname/github-automation-project.git
-cd github-automation-project
+git clone https://github.com/dreamy936/QA-Automation-Demo.git
+cd QA-Automation-Demo
+python -m venv .venv
+.\.venv\Scripts\activate   # Windows (PowerShell)
+# source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 playwright install
 pytest tests/
 ```
+
 
 ###  📝 Notes
 Always use a virtual environment when running locally (python -m venv .venv).
