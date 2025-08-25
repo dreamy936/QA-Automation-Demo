@@ -6,16 +6,27 @@ on:
   pull_request:
     branches: [ main ]
 
+# Pages 需要的权限（很重要）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   test:
-    runs-on: ubuntu-22.04   # 固定系统版本，避免系统依赖差异
+    runs-on: ubuntu-22.04   # 固定 22.04（Playwright 依赖更稳定）
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -28,37 +39,32 @@ jobs:
       - name: Install Playwright browsers and system deps
         run: python -m playwright install --with-deps
 
+      # 运行 API & UI（你的 pytest.ini 里已经配置了 HTML 报告输出到 playwright-report/index.html）
       - name: Run API tests
         run: pytest tests/api -q
 
-      # 生成 HTML 报告；成功/失败都生成
       - name: Run UI tests (Playwright) with HTML report
-        run: |
-          mkdir -p playwright-report
-          pytest tests/ui -q \
-            --tracing=retain-on-failure \
-            --screenshot=only-on-failure \
-            --video=off \
-            --html=playwright-report/index.html --self-contained-html
+        run: pytest tests/ui -q
 
-      # 调试：列出要上传的目录（遇到不存在也不报错）
-      - name: List report dirs (debug)
-        if: always()
-        run: |
-          echo "== ls playwright-report =="
-          ls -Rl playwright-report || true
-          echo "== ls test-results =="
-          ls -Rl test-results || true
-
-      # 上传报告与失败产物（注意：这里不能写注释在路径行里）
-      - name: Upload Playwright report & traces
+      # 上传 Artifact（保底，失败也上传）
+      - name: Upload Playwright report (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          # 用通配符；playwright-report 一定存在；test-results 只有失败时出现
-          path: |
-            playwright-report/**
-            test-results/**
-          if-no-files-found: warn
+          path: playwright-report/
+          if-no-files-found: error
           retention-days: 7
+
+      # 上传 Pages 工件（把整个 HTML 报告目录作为站点内容）
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: playwright-report
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        if: always()
+        id: deployment
+        uses: actions/deploy-pages@v4
