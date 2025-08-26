@@ -1,35 +1,58 @@
 name: CI
 
 on:
+  # 触发：推送到 main 或对 main 的 PR
+  # トリガー：main への push / PR
+  # Trigger: on push to main or PR targeting main
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+    
+# permissions:GitHub Pages 部署所需的最小权限
+# permissions:GitHub Pages デプロイに必要な最小権限
+# Minimal permissions for GitHub Pages deployment
 permissions:
   contents: read
   pages: write
   id-token: write
-
+  
+# concurrency：同名组内的 Pages 发布不相互打架
+# 競合回避：同じグループの Pages デプロイを直列化
+# Concurrency: serialize Pages deployments in the same group
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
   test:
+    # 运行环境：固定 Ubuntu 22.04（Playwright 依赖更稳定）
+    # 実行環境：Ubuntu 22.04 固定（Playwright 依存は安定）
+    # Runner: pin to Ubuntu 22.04 for stable Playwright deps
     runs-on: ubuntu-22.04
-    # 让 job 卡片出现“直达链接”
+    
+    # 在 Job 卡片展示 Pages 的直达链接
+    # ジョブカードに Pages の URL を表示
+    # Show deployed Pages URL on the job card
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
-    # 关键：全局设置东京时区（对 Python/pytest-html 生效）
+      
+    # 全局时区：东京（供 Python/pytest 读取）
+    # 全体タイムゾーン：東京（Python/pytest 用）
+    # Global timezone: Tokyo (consumed by Python/pytest)
     env:
       TZ: Asia/Tokyo
 
     steps:
+      # 1) 拉取仓库代码
+      # 1) リポジトリをチェックアウト
+      # 1) Checkout repository
       - uses: actions/checkout@v4
 
-      # --- 设置系统时区为东京（对 `date` 等系统命令生效）---
+      # 2) 设置系统时区为东京（让 `date` 等命令也用 JST）
+      # 2) システムのタイムゾーンも東京に設定（date 等が JST になる）
+      # 2) Set system timezone to Tokyo (so `date` prints JST)
       - name: Set timezone to Tokyo (system & env)
         run: |
           echo "Asia/Tokyo" | sudo tee /etc/timezone
@@ -43,22 +66,38 @@ jobs:
           print("time.tzname:", time.tzname)
           PY
 
+          
+      # 3) 安装 Python 并开启 pip 缓存提速
+      # 3) Python をセットアップ（pip キャッシュ有効）
+      # 3) Setup Python with pip caching
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: pip
-
+          
+      # 4) 安装项目依赖（requirements.txt）
+      # 4) プロジェクト依存のインストール
+      # 4) Install project dependencies
       - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          
+      # 5) 安装 Playwright 浏览器 + 系统依赖
+      # 5) Playwright のブラウザと必要な OS 依存を導入
+      # 5) Install Playwright browsers & system deps
       - name: Install Playwright browsers and system deps
         run: python -m playwright install --with-deps
 
+      # 6) 运行 API 测试（pytest -q）
+      # 6) API テストの実行（pytest -q）
+      # 6) Run API tests (pytest -q)
       - name: Run API tests
         run: pytest tests/api -q
 
+      # 7) 运行 UI 测试 + 生成 HTML 报告（内置 JST 时间元数据）
+      # 7) UI テスト + HTML レポート生成（JST メタデータ埋め込み）
+      # 7) Run UI tests + build HTML report (embed JST metadata)
       - name: Run UI tests (Playwright) + build HTML report (JST stamp)
         run: |
           # 用系统 date 生成东京时间，塞进 pytest-html 的元数据
@@ -68,6 +107,9 @@ jobs:
             --metadata "Report TZ" "Asia/Tokyo" \
             --metadata "Generated (JST)" "$JST_NOW"
 
+      # 8) 报告作为 Artifact 保存（供本次运行下载）
+      # 8) レポートをアーティファクトに保存（実行ページから取得可）
+      # 8) Upload report as artifact (downloadable from this run)
       - name: Upload Playwright report (artifact)
         if: always()
         uses: actions/upload-artifact@v4
@@ -77,12 +119,18 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
 
+      # 9) 为 GitHub Pages 打包工件（仍然是 ui-report/）
+      # 9) GitHub Pages 用のアーティファクトを作成（同じ ui-report/）
+      # 9) Package artifact for GitHub Pages (still ui-report/)
       - name: Upload Pages artifact
         if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: ui-report/
 
+      # 10) 发布到 GitHub Pages，得到在线 HTML 报告
+      # 10) GitHub Pages へデプロイ（オンライン HTML レポート）
+      # 10) Deploy to GitHub Pages (online HTML report)
       - name: Deploy to GitHub Pages
         if: always()
         id: deploy
