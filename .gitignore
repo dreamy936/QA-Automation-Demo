@@ -1,17 +1,18 @@
-#Avoid pushing cached files and reports to GitHub.
-#避免把缓存、报告等推到 GitHub
+# Avoid pushing cached files and reports to GitHub
+# 避免把缓存、报告等推到 GitHub【.gitignore 本质 = 告诉 Git 忽略哪些文件；不是代码文件，而是一个 配置文件（plain text），】
+# キャッシュやレポートを GitHub にプッシュしないようにする
 
-# Python
-__pycache__/
-*.pyc
-.venv/
-.env
+# Python cache & env
+__pycache__/      # Python cache files / Python缓存文件 / Pythonキャッシュ
+*.pyc             # Compiled bytecode / 编译后的字节码 / コンパイル済みバイトコード
+.venv/            # Virtual environment / 虚拟环境 / 仮想環境
+.env              # Local environment variables / 本地环境变量文件 / ローカル環境変数ファイル
 
-# Pytest/Allure
-reports/
-allure-results/
-allure-report/
+# Pytest / Allure reports
+reports/          # Generic reports / 通用报告目录 / レポートフォルダ
+allure-results/   # Allure raw results / Allure 原始结果 / Allure 結果ファイル
+allure-report/    # Allure HTML reports / Allure 生成的报告 / Allure HTMLレポート
 
-# Playwright
-test-results/
-playwright-report/
+# Playwright outputs
+test-results/     # Playwright test traces / 测试执行结果 / テスト結果
+playwright-report/ # Playwright HTML reports / Playwright 报告 / Playwrightレポート
