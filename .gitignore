@@ -1,5 +1,5 @@
 # Avoid pushing cached files and reports to GitHub
-# 避免把缓存、报告等推到 GitHub【.gitignore 本质 = 告诉 Git 忽略哪些文件；不是代码文件，而是一个 配置文件（plain text），】
+# 避免把缓存、报告等推到 GitHub【.gitignore 本质 = 告诉 Git 忽略哪些文件；不是代码文件，而是一个 配置文件（plain text），保持仓库干净】
 # キャッシュやレポートを GitHub にプッシュしないようにする
 
 # Python cache & env
