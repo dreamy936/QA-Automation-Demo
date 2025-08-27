@@ -1,14 +1,33 @@
+# =============================
+# ✅“项目所需工具清单”，让这个自动化测试可以在任何地方一键复现。
+# 语言/ 格式：纯文本文件（不是 Python），名字必须叫 requirements.txt，是 Python 工程里标准的依赖清单。
+# 作用：告诉别人（或者 CI/CD 系统）——运行这个项目需要哪些库、版本是多少。
+# 用法：一行一个依赖，执行
+# == 表示固定版本，保证本地与 CI 一致。
+# pip install -r requirements.txt  就会安装所有列出的依赖。
+# =============================
+
 # Python Test automation project dependencies
-# Playwright
+# Python 自动化测试项目依赖
+# Python テスト自動化プロジェクトの依存関係
+
+
+# Playwright (UI automation library)
+# Playwright（UI 自动化框架）
+# Playwright（UI自動化ライブラリ）
 playwright==1.44.0  
 
-# API Automation
+# API Automation: HTTP client + test runner
+# API 自动化：HTTP 请求库 + 测试框架
+# API自動化：HTTPクライアント + テストランナー
 requests==2.32.3  
 pytest==8.4.1  
 pytest-rerunfailures==13.0
 
 
-# Report Generation
+# Report Generation: test reports & HTML report
+# 报告生成：测试报告与 HTML 报告
+# レポート生成：テストレポートとHTMLレポート
 allure-pytest==2.15.0  
 pytest-playwright==0.5.0
 # Generate html report
