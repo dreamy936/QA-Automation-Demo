@@ -86,8 +86,12 @@ jobs:
       # 5) 安装 Playwright 浏览器 + 系统依赖
       # 5) Playwright のブラウザと必要な OS 依存を導入
       # 5) Install Playwright browsers & system deps
-      - name: Install Playwright browsers and system deps
-        run: python -m playwright install --with-deps
+      #- name: Install Playwright browsers and system deps
+      #  run: python -m playwright install --with-deps
+      - name: Install Playwright (browsers + system deps)
+        uses: microsoft/playwright-github-action@v1
+        with:
+          version: 1.44.0   # 和 requirements.txt 保持一致
 
       # 6) 运行 API 测试（pytest -q）
       # 6) API テストの実行（pytest -q）
