@@ -1,310 +1,170 @@
-[![CI](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml)
+# 🚀 QA Automation Demo Framework
 
+[![CI Status](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml)
+[![Test Report](https://img.shields.io/badge/View-HTML_Report-blue)](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess)
 
----
-
-# 🚀 Github-Automation-Project
-
-[中文](#cn-chinese) | [日本語](#jp-japanese) | [English](#en-english)
-
-🔗 View the Latest Online HTML Test Report (GitHub Pages)
-👉 [Click here](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess)
-
-
-
-## 🚀 CI/CD Pipeline | CI/CD パイプライン | CI/CD 流程
-
-✅ Runs on every push → Triggers GitHub Actions workflow
-
-✅ Installs dependencies → Python, Playwright, Browsers
-
-✅ Runs API tests (pytest tests/api)
-
-✅ Runs UI tests (pytest tests/ui)
-
-✅ Generates HTML report with pytest-html
-
-✅ Uploads artifacts (downloadable from Actions)
-
-✅ Deploys reports to GitHub Pages (public URL)
-
-
-
-## 📂 Project Structure | プロジェクト構成 | 项目结构
-
-```bash
-QA-Automation-Demo/
-│── .github/workflows/ci.yml     # CI/CD workflow
-│── tests/                       # Test cases
-│    ├── api/                    # API tests
-│    └── ui/                     # UI tests (Playwright)
-│── conftest.py                  # Pytest fixtures
-│── pytest.ini                   # Pytest config
-│── requirements.txt             # Dependencies
-│── README.md                    # Project guide
-```
-
-
-
-
+> **Note:** Select language / 言語を選択 / 选择语言:
+> [English](#-project-overview) | [日本語](#-日本語-readme) | [中文](#-中文-readme)
 
 ---
-
-## cn-Chinese
-
-## 📖 项目简介
-
-这是一个基于 Pytest + Playwright 的自动化测试 Demo。
-通过 GitHub Actions，在每次 push 时运行 UI/API 测试，并将测试报告同时发布为 可下载的 artifact 和 GitHub Pages 在线 HTML 报告。
-
-
-## 🛠 技术栈
-语言: Python 3.x
-
-UI 自动化: Playwright
-
-API 自动化: Pytest + Requests
-
-报告: Allure / Pytest-HTML
-
-CI/CD: GitHub Actions
-
-## ⚙️ 快速开始
-```bash
-git clone https://github.com/dreamy936/QA-Automation-Demo.git
-cd QA-Automation-Demo
-python -m venv .venv
-.\.venv\Scripts\activate   # Windows (PowerShell)
-# source .venv/bin/activate   # macOS/Linux
-pip install -r requirements.txt
-playwright install
-pytest tests/
-```
-
-## 📝  注意事项
-本地运行时请务必使用 虚拟环境 (python -m venv .venv)。
-
-运行测试前先执行 pip install -r requirements.txt。
-
-使用 pytest 执行时，报告会自动生成。
-
-如果 CI 失败，请检查：
-
-1.依赖安装 (pip install)
-
-2.浏览器安装 (python -m playwright install --with-deps)
-
-3.ci.yml 中的报告路径
-
-时区已固定为 Asia/Tokyo (JST)，保持与本地时间一致。
-
-
----
-
-## jp-japanese
-
-## 📖 プロジェクト概要
-
-このリポジトリは Pytest + Playwright を使った自動テストのデモです。
-GitHub Actions と連携し、プッシュのたびに UI / API テストを実行し、テストレポートを アーティファクト と GitHub Pages (オンライン HTML レポート) の両方で公開します。
-
-## 🛠 技術スタック
-
-言語: Python 3.x
-
-UI 自動化: Playwright
-
-API 自動化: Pytest + Requests
-
-レポート: Allure / Pytest-HTML
-
-CI/CD: GitHub Actions
-
-## ⚙️ クイックスタート
-```bash
-git clone https://github.com/dreamy936/QA-Automation-Demo.git
-cd QA-Automation-Demo
-python -m venv .venv
-.\.venv\Scripts\activate   # Windows (PowerShell)
-# source .venv/bin/activate   # macOS/Linux
-pip install -r requirements.txt
-playwright install
-pytest tests/
-```
-
-
-## 📝  注意事項
-ローカル実行時は必ず 仮想環境 (python -m venv .venv) を使用してください。
-
-テスト実行前に pip install -r requirements.txt を実行してください。
-
-pytest を使って実行すると、レポートは自動生成されます。
-
-CI が失敗した場合、以下を確認してください:
-
-1.依存関係 (pip install)
-
-2.ブラウザインストール (python -m playwright install --with-deps)
-
-3.ci.yml 内のレポート出力パス
-
-タイムゾーンは Asia/Tokyo (JST) に固定しています。
-
----
-
-## en-english
 
 ## 📖 Project Overview
 
-This is a demo repository for automated testing with Pytest + Playwright.
-The project integrates with GitHub Actions to run UI/API tests on every push, and publishes test reports as both downloadable artifacts and GitHub Pages (online HTML reports).
+This is a comprehensive **Test Automation Framework** built with **Python**, **Playwright**, and **Pytest**. 
+It demonstrates a modern CI/CD integration where tests are automatically triggered on every push, ensuring continuous quality assurance.
+
+**🎯 Key Features:**
+* **Hybrid Testing:** Integrates both **UI** (Playwright) and **API** (Requests) automation.
+* **CI/CD Pipeline:** Fully integrated with **GitHub Actions**.
+* **Visual Reporting:** Automatically generates and deploys HTML test reports to **GitHub Pages**.
+* **Maintainability:** Uses the **Page Object Model (POM)** design pattern (Assuming you did this).
+
+🔗 **[Click here to view the latest Live Test Report](https://github.com/dreamy936/QA-Automation-Demo/actions/workflows/ci.yml?query=branch%3Amain+is%3Asuccess)**
 
 ## 🛠 Tech Stack
 
-Language: Python 3.x
+| Component | Tool | Description |
+| :--- | :--- | :--- |
+| **Language** | Python 3.x | Core programming language |
+| **UI Framework** | Playwright | Fast, reliable browser automation |
+| **API Framework** | Requests | Simple, elegant HTTP library |
+| **Test Runner** | Pytest | Scalable testing framework |
+| **CI/CD** | GitHub Actions | Workflow automation |
+| **Reporting** | Pytest-HTML / Allure | Visualization of test results |
 
-UI Automation: Playwright
+## 📂 Project Structure
 
-API Automation: Pytest + Requests
-
-Reports: Allure / Pytest-HTML
-
-CI/CD: GitHub Actions
-
-## ⚙️ Quick Start
-```bash
-git clone https://github.com/dreamy936/QA-Automation-Demo.git
-cd QA-Automation-Demo
-python -m venv .venv
-.\.venv\Scripts\activate   # Windows (PowerShell)
-# source .venv/bin/activate   # macOS/Linux
-pip install -r requirements.txt
-playwright install
-pytest tests/
+```text
+QA-Automation-Demo/
+│── .github/workflows/   # CI/CD configurations (YAML)
+│── tests/               # Test suites
+│   ├── api/             # API test cases
+│   └── ui/              # UI test cases (Playwright)
+│── pages/               # Page Object Models (Recommended to add this folder)
+│── conftest.py          # Pytest fixtures & hooks
+│── pytest.ini           # Configuration file
+│── requirements.txt     # Python dependencies
+└── README.md            # Documentation
 ```
 
+## ⚙️ Quick Start
 
-## 📝 Notes
-Always use a virtual environment when running locally (python -m venv .venv).
+### Prerequisites
+* Python 3.8+
+* Git
 
-Run pip install -r requirements.txt before running tests.
+### Installation & Execution
 
-Use pytest in PowerShell or CI; reports will be auto-generated.
+1.  **Clone the repository**
+    ```bash
+    git clone [https://github.com/dreamy936/QA-Automation-Demo.git](https://github.com/dreamy936/QA-Automation-Demo.git)
+    cd QA-Automation-Demo
+    ```
 
-If CI fails, check:
+2.  **Set up Virtual Environment**
+    ```bash
+    # Windows (PowerShell)
+    python -m venv .venv
+    .\.venv\Scripts\activate
 
-1.Dependency installation (pip install)
+    # macOS/Linux
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
 
-2.Browser installation (python -m playwright install --with-deps)
+3.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    playwright install
+    ```
 
-3.Report upload paths in ci.yml
+4.  **Run Tests**
+    ```bash
+    # Run all tests
+    pytest
 
-Timezone is set to Asia/Tokyo (JST) for consistency with local time.
+    # Run only UI tests
+    pytest tests/ui
 
+    # Run with slow motion (for debugging)
+    pytest tests/ui --slowmo 1000
+    ```
 
---
+## 🧩 Architectural Decisions (Why this stack?)
 
+* **Why Playwright?** Chosen for its speed, auto-wait capabilities, and native support for modern web features compared to Selenium.
+* **Why GitHub Actions?** To demonstrate a "Shift-Left" testing approach where feedback is immediate upon code changes.
+* **Why Hybrid (UI + API)?** API tests provide fast feedback on backend logic, while UI tests ensure the end-user journey is functional.
 
-# 📌 附录：面试问答集 (面接Q&A / Interview Q&A)
-## Q1: 这个项目是做什么的？
+---
 
-中文 👉 一个基于 GitHub Actions 的自动化测试 Demo，集成了 API 测试和 UI 测试，每次 push 自动运行并生成 HTML 报告。
+<details>
+<summary><strong>🇯🇵 日本語 README (Click to expand)</strong></summary>
 
-日本語 👉 GitHub Actions ベースの自動テストデモで、APIテストとUIテストを統合し、pushごとに自動実行してHTMLレポートを生成します。
+## 📖 プロジェクト概要
 
-English 👉 An automation testing demo based on GitHub Actions, integrating API & UI tests, runs automatically on each push and generates HTML reports.
+Pytest + Playwright をベースとした自動テストフレームワークのデモです。
+GitHub Actions と連携し、コードがプッシュされるたびに UI および API テストを自動実行します。結果は GitHub Pages で公開されます。
 
+## 🛠 技術スタック
 
+* **言語:** Python 3.x
+* **UI 自動化:** Playwright
+* **API 自動化:** Pytest + Requests
+* **レポート:** Pytest-HTML / Allure
+* **CI/CD:** GitHub Actions
 
+（以下、Quick Startの手順は英語と同様）
 
-## Q2: 为什么要同时做 API 和 UI 测试？
+</details>
 
-中文 👉 API 测试验证逻辑快，UI 测试保证交互正常，互补性强。
+<details>
+<summary><strong>🇨🇳 中文 README (点击展开)</strong></summary>
 
-日本語 👉 APIテストはロジック確認が速く、UIテストは操作フローの正常性を保証し、補完的です。
+## 📖 项目简介
 
-English 👉 API tests validate logic quickly, UI tests ensure interactions work properly — they complement each other.
+这是一个基于 Pytest + Playwright 的自动化测试框架演示。
+通过 GitHub Actions 实现了 CI/CD 流程，每次代码提交都会自动运行测试，并生成可以在线预览的 HTML 报告。
 
+## 🛠 技术栈
 
+* **语言:** Python 3.x
+* **UI 自动化:** Playwright
+* **API 自动化:** Pytest + Requests
+* **报告:** Pytest-HTML
+* **CI/CD:** GitHub Actions
 
+</details>
 
-## Q3: 测试结果如何可视化？
+---
 
-中文 👉 用 pytest-html 生成 HTML 报告，并通过 GitHub Actions 上传到 Artifacts / Pages 在线查看。
+## 👩‍💻 Author
 
-日本語 👉 pytest-html でHTMLレポートを生成し、GitHub Actionsで Artifacts / Pages にアップロードしてオンラインで確認します。
+**Amber**
+* *QA Automation Engineer*
+* Focus: Python, Playwright, CI/CD pipelines.
 
-English 👉 Reports are generated with pytest-html and published via GitHub Actions to Artifacts / Pages for online viewing.
+```
 
+---
 
+### **针对“附录：面试问答集”的处理建议**
 
+我强烈建议把原本 README 最后的 "面试 Q&A" 部分**删掉**，或者转移位置。
 
-## Q4: 在项目中最大的收获是什么？
+**为什么？**
+因为 README 是给同事、老板或面试官展示“你的技术成果”的地方。把 Q&A 放这里，感觉像是你在背书，而不是在做项目。
 
-中文 👉 学会把自动化测试融入 CI/CD，让测试成为持续集成的一部分。
+**替代方案：**
+在面试时，当面试官问你 "Why did you choose Playwright?" 时，你可以**口头**回答这些内容（你的 Q&A 内容本身写得很好！），这会显得你对技术有深刻的理解，而不是照着文档念。
 
-日本語 👉 自動テストをCI/CDに組み込み、継続的インテグレーションの一部にできたことです。
+如果你一定要保留，可以像上面模板那样，改写成 `Architectural Decisions` (架构决策)，用陈述句表达，而不是问答句。
 
-English 👉 Learned to integrate automated testing into CI/CD, making testing part of continuous integration.
+* **原版 (Q&A):** "Q: 为什么要同时做 API 和 UI 测试？ A: API 测试验证逻辑快..."
+* **专业版 (Decisions):** "**Testing Strategy:** I implemented a hybrid approach. API tests are used for fast feedback on business logic, while UI tests cover critical user journeys." (看，意思一样，但听起来像个资深工程师的总结)。
 
+### **下一步 (Next Step)**
 
-
-## Q5: 如果测试失败了如何排查？
-
-中文 👉 查看 CI 日志，结合截图/trace，在本地复现同样命令。
-
-日本語 👉 CIログを確認し、スクリーンショットやtraceを利用して、ローカルで再現します。
-
-English 👉 Check CI logs, use screenshots/trace, and reproduce locally with the same command.
-
-
-
-
-## Q6: 为什么选 Pytest+Requests / Playwright？
-
-中文 👉 这是实际项目常用组合：Requests 写 API，Pytest 框架灵活，Playwright UI 自动化现代高效。
-
-日本語 👉 実プロジェクトでよく使われる組み合わせ：RequestsはAPI、Pytestは柔軟なフレームワーク、Playwrightはモダンで効率的なUI自動化。
-
-English 👉 A common real-world stack: Requests for API, Pytest for flexibility, Playwright for modern efficient UI automation.
-
-
-
-
-## Q7: CI/CD 是什么？
-
-中文 👉 CI/CD = 持续集成 / 持续交付，本项目属于持续集成（CI）。
-
-日本語 👉 CI/CD = 継続的インテグレーション / 継続的デリバリー、このプロジェクトはCI部分に当たります。
-
-English 👉 CI/CD = Continuous Integration / Continuous Delivery, this project focuses on CI.
-
-
-
-
-## Q8: 项目工作原理 / 意义是什么？
-
-中文 👉 Push → 触发 CI → 跑测试 → 生成报告 → 发布 GitHub Pages；保证代码变更不破坏功能。
-
-日本語 👉 Push → CIトリガー → テスト実行 → レポート生成 → GitHub Pages公開；コード変更が機能を壊さないようにします。
-
-English 👉 Push → Trigger CI → Run tests → Generate report → Publish via GitHub Pages; ensures changes don’t break features.
-
-
-
-
-## Q9: “每次 push 都会运行测试”是所有仓库吗？
-
-中文 👉 不是，只对这个仓库（QA-Automation-Demo）生效，除非其他仓库也配置了 CI。
-
-日本語 👉 いいえ、このリポジトリ（QA-Automation-Demo）のみに適用され、他のリポジトリはCIを設定しない限り動きません。
-
-English 👉 No, only this repository (QA-Automation-Demo) runs tests, unless other repos also have CI configured.
-
-
-
---
-
-👩‍💻 Author: Amber  
-Role: QA Enthusiast, Automation Learner  
-Contact: GitHub Profile  
+你的项目结构里提到了 `tests/ui` 和 `conftest.py`。
+**你想让我帮你 Review 一下 `conftest.py` 或者其中一个 UI 测试用例的代码吗？**
+(很多初学者在 `conftest.py` 里的 `fixture` 作用域 scope 设置上容易踩坑，这在面试中也是高频考点)。
